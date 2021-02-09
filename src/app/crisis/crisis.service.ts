@@ -4,15 +4,15 @@ import { Observable, of, pipe } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { MessageService } from '../message.service';
-import { Hero } from './hero';
-import { HEROES } from './mock.heroes';
+import { Crisis } from './crisis';
+import { CRISIS } from './mock.crisis';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HeroService {
+export class CrisisService {
 
-  private heroesUrl = 'api/heroes';
+  private crisisUrl = 'api/crisis';
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
   }
@@ -22,58 +22,58 @@ export class HeroService {
     private http: HttpClient
   ) { }
 
-  getHeroes(): Observable<Hero[]> {
+  getAllCrisis(): Observable<Crisis[]> {
     //this.messageService.add('HeroService: fetched heroes');
-    return this.http.get<Hero[]>(this.heroesUrl)
+    return this.http.get<Crisis[]>(this.crisisUrl)
       .pipe(
-        tap(() => this.log('fetched heroes')),    // success on Observable
-        catchError(this.handleError<Hero[]>('getHeroes', [])) // catch on Observable
+        tap(() => this.log('fetched crisis')),    // success on Observable
+        catchError(this.handleError<Crisis[]>('getCrisis', [])) // catch on Observable
       )
   }
 
-  getHero(id: number): Observable<Hero> {
-    const url = `${this.heroesUrl}/${id}`;
-    return this.http.get<Hero>(url)    
+  getCrisis(id: number): Observable<Crisis> {
+    const url = `${this.crisisUrl}/${id}`;
+    return this.http.get<Crisis>(url)    
       .pipe(
-        tap(() => this.log(`fetcher hero id=${id}`)),
-        catchError(this.handleError<Hero>(`getHero id=${id}`))
+        tap(() => this.log(`fetcher crisis id=${id}`)),
+        catchError(this.handleError<Crisis>(`getCrisis id=${id}`))
       );
   }
 
-  updateHero(hero: Hero): Observable<any> {
-    return this.http.put(this.heroesUrl, hero, this.httpOptions)
+  updateCrisis(crisis: Crisis): Observable<any> {
+    return this.http.put(this.crisisUrl, crisis, this.httpOptions)
       .pipe(
-        tap(() => this.log(`update hero id=${hero.id}`)),
-        catchError(this.handleError<any>(`updateHero id=${hero.id}`))
+        tap(() => this.log(`update crisis id=${crisis.id}`)),
+        catchError(this.handleError<any>(`updateCrisis id=${crisis.id}`))
       );
   }
 
-  addHero(hero: Hero): Observable<Hero> {
-    return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions)
+  addCrisis(crisis: Crisis): Observable<Crisis> {
+    return this.http.post<Crisis>(this.crisisUrl, crisis, this.httpOptions)
       .pipe(
-        tap( newHero => this.log(`added new hero ${newHero.name}`)),
-        catchError(this.handleError<Hero>(`addHero name=${hero.name}`))
+        tap( newCrisis => this.log(`added new crisis ${newCrisis.name}`)),
+        catchError(this.handleError<Crisis>(`addCrisis name=${crisis.name}`))
       );
   }
 
-  deleteHero(hero: Hero | number): Observable<Hero> {
-    const id = typeof hero === 'number' ? hero : hero.id;
-    const url = `${this.heroesUrl}/${id}`;
-    return this.http.delete<Hero>(url, this.httpOptions)
+  deleteCrisis(crisis: Crisis | number): Observable<Crisis> {
+    const id = typeof crisis === 'number' ? crisis : crisis.id;
+    const url = `${this.crisisUrl}/${id}`;
+    return this.http.delete<Crisis>(url, this.httpOptions)
       .pipe(
-        tap( () => this.log(`deleted hero id=${id}`)),
-        catchError(this.handleError<Hero>(`deleteHero id=${id}`))
+        tap( () => this.log(`deleted crisis id=${id}`)),
+        catchError(this.handleError<Crisis>(`deleteCrisis id=${id}`))
       );
   }
 
-  searchHeroes(term: string): Observable<Hero[]> {
+  searchCrisis(term: string): Observable<Crisis[]> {
     if(!term.trim()) {
       return of([]);
     }
-    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`)
+    return this.http.get<Crisis[]>(`${this.crisisUrl}/?name=${term}`)
       .pipe(
-        tap( result => this.log( result.length ? `found heroes matching "${term}"` : `no heroes matching "${term}"`)),
-        catchError(this.handleError<Hero[]>('searchHeroes', []))
+        tap( result => this.log( result.length ? `found crisis matching "${term}"` : `no crisis matching "${term}"`)),
+        catchError(this.handleError<Crisis[]>('searchCrisis', []))
       );
   }
 
@@ -98,6 +98,6 @@ export class HeroService {
 }
 
   private log(message: string): void {
-    this.messageService.add(`HeroService: ${message}`);
+    this.messageService.add(`CrisisService: ${message}`);
   }
 }

@@ -1,11 +1,11 @@
 /* HeroesComponent's private CSS styles */
-.heroes {
+.crisis {
   margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
   width: 15em;
 }
-.heroes li {
+.crisis li {
   position: relative;
   cursor: pointer;
   background-color: #EEE;
@@ -15,20 +15,20 @@
   border-radius: 4px;
 }
 
-.heroes li:hover {
+.crisis li:hover {
   color: #607D8B;
   background-color: #DDD;
   left: .1em;
 }
 
-.heroes li.selected {
+.crisis li.selected {
   background-color: #CFD8DC;
   color: white;
 }
-.heroes li.selected:hover {
+.crisis li.selected:hover {
   background-color: #BBD8DC;
 }
-.heroes a {
+.crisis a {
   color: #333;
   text-decoration: none;
   position: relative;
@@ -36,11 +36,11 @@
   width: 250px;
 }
 
-.heroes a:hover {
+.crisis a:hover {
   color: #607D8B;
 }
 
-.heroes .badge {
+.crisis .badge {
   display: inline-block;
   font-size: small;
   color: white;

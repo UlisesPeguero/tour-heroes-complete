@@ -1,20 +1,20 @@
-<h2> HEROES </h2>
-<ul class="heroes">
-    <li *ngFor="let hero of heroes$ | async"
-      [class.selected]="hero.id === selectedId">
-        <a [routerLink]="['/hero', hero.id]">
-            <span class="badge"> {{ hero.id }} </span> {{ hero.name }}                
+<h2> CRISIS </h2>
+<ul class="crisis">
+    <li *ngFor="let crisis of crisis$ | async"
+      [class.selected]="crisis.id === selectedId">
+        <a [routerLink]="['/crisis', crisis.id]">
+            <span class="badge"> {{ crisis.id }} </span> {{ crisis.name }}                
         </a>          
-        <button class="delete" title="delete hero"
-            (click)="delete(hero)">x</button>      
+        <button class="delete" title="delete crisis"
+            (click)="delete(crisis)">x</button>      
     </li>
 </ul>
 <div>
-  <label>Hero name:
-    <input #heroName />
+  <label>Crisis name:
+    <input #crisisName />
   </label>
   <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(heroName.value); heroName.value=''">
+  <button (click)="add(crisisName.value); crisisName.value=''">
     add
   </button>
 </div>

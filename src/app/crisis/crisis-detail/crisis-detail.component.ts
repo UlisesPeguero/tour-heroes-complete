@@ -4,23 +4,23 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { Hero } from '../hero';
-import { HeroService } from '../hero.service';
+import { Crisis } from '../crisis';
+import { CrisisService } from '../crisis.service';
 import { UrlService } from 'src/app/url.service';
 
 @Component({
-  selector: 'app-hero-detail',
-  templateUrl: './hero-detail.component.html',
-  styleUrls: ['./hero-detail.component.css']
+  selector: 'app-crisis-detail',
+  templateUrl: './crisis-detail.component.html',
+  styleUrls: ['./crisis-detail.component.css']
 })
-export class HeroDetailComponent implements OnInit {
+export class CrisisDetailComponent implements OnInit {
 
-  hero: Hero;
-  hero$: Observable<Hero>;
+  crisis: Crisis;
+  crisis$: Observable<Crisis>;
   previousUrl: string;
 
   constructor(
-    private heroService: HeroService,
+    private crisisService: CrisisService,
     private route: ActivatedRoute,
     private urlService: UrlService,
     private router: Router
@@ -28,9 +28,9 @@ export class HeroDetailComponent implements OnInit {
 
   ngOnInit(): void {
     //this.getHero();
-    this.hero$ = this.route.paramMap.pipe(
+    this.crisis$ = this.route.paramMap.pipe(
       switchMap( (params: ParamMap) =>
-        this.heroService.getHero(+params.get('id'))
+        this.crisisService.getCrisis(+params.get('id'))
       )
     );
     // get previous url
@@ -42,13 +42,13 @@ export class HeroDetailComponent implements OnInit {
 
   getHero(): void {
     const id = +this.route.snapshot.paramMap.get('id');    
-    this.heroService.getHero(id)
-        .subscribe(hero => this.hero = hero);
+    this.crisisService.getCrisis(id)
+        .subscribe(crisis => this.crisis = crisis);
   }
 
-  save(hero: Hero): void {
-    this.heroService.updateHero(hero)
-      .subscribe(() => this.goBack(hero.id));   
+  save(crisis: Crisis): void {
+    this.crisisService.updateCrisis(crisis)
+      .subscribe(() => this.goBack(crisis.id));   
   }
 
   goBack(id: number): void {
